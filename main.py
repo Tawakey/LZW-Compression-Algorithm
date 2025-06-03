@@ -11,8 +11,9 @@ DEFAULT_MSG = """Алгоритм кодирования информации LZ
 2. Закодировать
 3. Декодировать
 4. Просмотреть словарь
-5. Собрать статистику
-6. Выход
+5. Просмотреть содержимое файла
+6. Собрать статистику
+7. Выход
 """
 
 STATISTIC_MSG = """- Исходный размер (файл {}): {} байт\n- Сжатый размер (файл output_binary.lzw): {} байт\n- Коэффициент сжатия: {}%"""
@@ -251,6 +252,11 @@ def collect_info():
     input()
 
 
+def view_content():
+    with open(ALGORITHM.get_filename(), "r", encoding="utf-8") as file:
+        print_to_menu(file.read())
+
+
 if __name__ == "__main__":
     while True:
         print_to_menu(DEFAULT_MSG)
@@ -269,6 +275,10 @@ if __name__ == "__main__":
             input()
         if variant == "5":
             if ALGORITHM is not None:
-                collect_info()
+                view_content()
+                input()
         if variant == "6":
+            if ALGORITHM is not None:
+                collect_info()
+        if variant == "7":
             exit()
